@@ -24,12 +24,14 @@ async function getById(shipperId) {
 }
 
 async function create(shipper) {
-  const result = await db('shippers').insert(shipper)
+  const [shipperId] = await db('shippers').insert(shipper)
+  const result = await getById(shipperId)
   return result
 }
 
-async function update() {
-  return 'update wired'
+async function update(shipperId, changes) {
+  const stuff = await db('shippers').update(changes).where('shipperid', shipperId)
+  return stuff
 }
 
 async function remove() {
